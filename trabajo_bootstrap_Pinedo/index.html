@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo Elementos Bootstrap 5</title>
+    <link rel="icon" href="./img/logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            overflow-x: hidden;
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .sidebar.open {
+            width: 250px;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #343a40;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1100;
+            transition: left 0.3s ease;
+        }
+
+        .sidebar.open+.openbtn {
+            left: 260px;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: 0;
+            height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .content.shift {
+            margin-left: 250px;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="mySidebar">
+        <a href="#" onclick="showComponent('normal')">Inicio</a>
+        <a href="#" onclick="showComponent('Grid')">Grid</a>
+        <a href="#" onclick="showComponent('Typography')">Typography</a>
+        <a href="#" onclick="showComponent('colors')">Colors</a>
+        <a href="#" onclick="showComponent('tables')">Tables</a>
+        <a href="#" onclick="showComponent('images')">Images</a>
+        <a href="#" onclick="showComponent('jumbotron')">Jumbotron</a>
+        <a href="#" onclick="showComponent('alerts')">Alerts</a>
+        <a href="#" onclick="showComponent('buttons')">Buttons</a>
+        <a href="#" onclick="showComponent('grupos-de-botones')">Grupos de botones</a>
+        <a href="#" onclick="showComponent('badges')">Badges</a>
+        <a href="#" onclick="showComponent('progress-bars')">Barras de progreso</a>
+        <a href="#" onclick="showComponent('spinners')">Spinners</a>
+        <a href="#" onclick="showComponent('pagination')">Paginacion</a>
+        <a href="#" onclick="showComponent('cards')">Cards</a>
+        <a href="#" onclick="showComponent('dropdowns')">Dropdowns</a>
+        <a href="#" onclick="showComponent('collapse')">Collapse</a>
+        <a href="#" onclick="showComponent('navs')">Navs</a>
+        <a href="#" onclick="showComponent('navbar')">Navbar</a>
+        <a href="#" onclick="showComponent('carousel')">Carrousel</a>
+        <a href="#" onclick="showComponent('modal')">Modal</a>
+        <a href="#" onclick="showComponent('toast')">Toast</a>
+        <a href="#" onclick="showComponent('scrollspy')">Scrollspy</a>
+        <a href="#" onclick="showComponent('offcanvas')">Offcanvas</a>
+        <a href="#" onclick="showComponent('utilities')">Utilities</a>
+        <a href="#" onclick="showComponent('dark-mode')">Dark-mode</a>
+        <a href="#" onclick="showComponent('flex')">Flex</a>
+        <a href="#" onclick="showComponent('forms')">Forms</a>
+        <a href="#" onclick="showComponent('select')">Select</a>
+        <a href="#" onclick="showComponent('checks')">Check and Radio</a>
+        <a href="#" onclick="showComponent('range')">Range</a>
+        <a href="#" onclick="showComponent('input-group')">Input Groups</a>
+        <a href="#" onclick="showComponent('floating')">Floating Labels</a>
+        <a href="#" onclick="showComponent('range')">Range</a>
+        <a href="#" onclick="showComponent('validation')">Form Validation</a>
+    </div>
+    <button class="openbtn" onclick="toggleSidebar()">☰ Menú</button>
+    <div class="content" id="mainContent">
+        <h1>Bienvenido a Componentes de Bootstrap</h1>
+        <h3>Selecciona un componente del menú lateral</h3>
+        <footer style="position: absolute; bottom: 10px; width: 100%; text-align: center;">
+            <p>Javier Pinedo</p>
+        </footer>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("mySidebar");
+            const content = document.getElementById("mainContent");
+            const button = document.querySelector(".openbtn");
+            const isOpen = sidebar.classList.contains("open");
+
+            if (isOpen) {
+                sidebar.classList.remove("open");
+                content.classList.remove("shift");
+                button.style.left = "10px";
+            } else {
+                sidebar.classList.add("open");
+                content.classList.add("shift");
+                button.style.left = "260px";
+            }
+        }
+        function showComponent(component) {
+            let content = '';
+            switch (component) {
+                case 'normal':
+                    content = `<div class="fade-in text-center">
+                        <h1>Bienvenido a Componentes de Bootstrap</h1>
+                        <h3>Selecciona un componente del menú lateral</h3>
+                        </div>`;
+                    break;
+                case 'Grid':
+                    content = `<div class="fade-in">
+                        <h2 class="text-center">BS5 Grid Basic</h2>
+                        <div class="row">
+                        <div class="col">Columna 1</div>
+                        <div class="col">Columna 2</div>
+                        <div class="col">Columna 3</div>
+                        </div>
+                        <br>
+                        <h5 class="text-center">El sistema de grid es una herramienta fundamental para el diseño y la maquetación de páginas web responsivas. Permite dividir una página en 
+                            filas y columnas, facilitando la organización y disposición de los elementos en diferentes tamaños de pantalla.</h5>
+                        </div>`;
+                    break;
+                case 'Typography':
+                    content = `
+                        <div class="fade-in text-center">
+                        <h2>BS5 Typography</h2>
+                        <p class="h1">Título H1</p>
+                        <p class="h2">Título H2</p>
+                        <p class="h3">Título H3</p>
+                        <p class="h4">Título H4</p>
+                        <p class="h5">Título H5</p>
+                        <p class="h6">Título H6</p>
+                        <br>
+                        <h5>La tipografía en Bootstrap 5 ofrece clases predefinidas para gestionar tamaños, alineación, colores y estilos del texto, 
+                            asegurando consistencia y accesibilidad. Permite personalizar 
+                            fácilmente el diseño tipográfico mediante tamaños responsivos, control de pesos de fuente, 
+                            espaciado, alineación y otros detalles estilísticos, sin necesidad de escribir CSS adicional.</h5>
+                        </div>`;
+                    break;
+                case 'colors':
+                    content = `
+                        <div class="fade-in text-center">
+                        <h2>BS5 Colors</h2>
+                        <p class="text-primary">Texto Primario</p>
+                        <p class="text-success">Texto Exitoso</p>
+                        <p class="text-danger">Texto de Error</p>
+                        <p class="text-warning">Texto de Advertencia</p>
+                        <p class="text-info">Texto Informativo</p>
+                        <br><br>
+                        <h5>Los colores en Bootstrap 5 se gestionan mediante clases predefinidas que permiten aplicar fácilmente 
+                            colores de texto y fondo, así como estilos de enlaces y otros elementos. 
+                            La paleta de colores incluye opciones para texto, fondos, botones, enlaces, alertas, badges y otros componentes, 
+                            facilitando la personalización y el mantenimiento del diseño visual de la interfaz.</h5>
+                        </div>`;
+                    break;
+                case 'tables':
+                    content = `
+                        <h2>BS5 Tables</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <h5>Las tablas en Bootstrap 5 ofrecen una estructura flexible y adaptable para mostrar datos en filas y columnas.</h5>
+                        </div>`;
+                    break;
+                case 'images':
+                    content = `
+                        <div class="fade-in text-center">
+                        <h2>BS5 Images</h2>
+                        <img src="./img/perro.jpg" class="img-fluid" alt="Responsive image" style="width: 100%; max-width: 300px;">
+                        <img src="./img/gato.jpg" class="rounded" alt="Rounded image" style="width: 100%; max-width: 300px;">
+                        <img src="./img/pajaro.jpg" class="rounded-circle" alt="Circle image" style="width: 100%; max-width: 300px;">
+                        <img src="./img/caballo.jpg" class="img-thumbnail" alt="Thumbnail image" style="width: 100%; max-width: 300px;">
+                        <br><br>
+                        <h5>Las imágenes en Bootstrap 5 se pueden adaptar fácilmente a diferentes tamaños de pantalla y estilos de diseño, 
+                            utilizando clases predefinidas para aplicar bordes redondeados, bordes circulares, sombras y otros efectos visuales. 
+                            Las imágenes responsivas se ajustan automáticamente al ancho del contenedor, 
+                            garantizando una visualización óptima en dispositivos de escritorio y móviles.</h5>
+                        </div>`;
+                    break;
+                case 'alerts':
+                    content = `
+                        <div class="fade-in text-center">
+                        <h2>BS5 Alerts</h2>
+                        <div class="alert alert-primary" role="alert">
+                        Este es un alerta primaria
+                        </div>
+                        <div class="alert alert-secondary" role="alert">
+                        Este es un alerta secundaria
+                        </div>
+                        <div class="alert alert-success" role="alert">
+                        Este es un alerta de éxito
+                        </div>
+                        <div class="alert alert-danger" role="alert">
+                        Este es un alerta de peligro
+                        </div>
+                        <div class="alert alert-warning" role="alert">
+                        Este es un alerta de advertencia
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                        Este es un alerta informativa
+                        </div>
+                        <div class="alert alert-light" role="alert">
+                        Este es un alerta ligera
+                        </div>
+                        <div class="alert alert-dark" role="alert">
+                        Este es un alerta oscura
+                        </div>
+                        <br>
+                        <h5>Los alertas en Bootstrap 5 son componentes flexibles y personalizables que permiten mostrar mensajes de información, advertencia, éxito o error. 
+                            Se pueden personalizar fácilmente mediante clases predefinidas para cambiar el color de fondo, el color del texto, los bordes y otros estilos visuales, 
+                            adaptándolos a las necesidades de diseño y usabilidad de la interfaz.</h5>
+                        </div>`;
+                    break;
+                case 'jumbotron':
+                    content = `
+                        <div class="fade-in text-center">
+                        <h2>BS5 Jumbotron</h2>
+                        <div class="p-5 mb-4 bg-light rounded-3">
+                        <div class="container-fluid py-5 d-flex flex-column align-items-center">
+                        <h1 class="display-5 fw-bold">Bienvenido al Jumbotron</h1>
+                        <p class="col-md-8 fs-4 text-center">Este es un simple jumbotron de Bootstrap 5. Es una forma excelente de destacar contenido o información importante.</p>
+                        <button class="btn btn-primary btn-lg" type="button">Aprende más</button>
+                        </div>
+                        </div>
+                        <br>
+                        <h5>El jumbotron en Bootstrap 5 es un componente de diseño que permite destacar contenido o información importante en una página web. 
+                            Se puede personalizar fácilmente mediante clases predefinidas para cambiar el color de fondo, el color del texto, el tamaño de la fuente y otros estilos visuales, 
+                            adaptándolo a las necesidades de diseño y usabilidad de la interfaz.</h5>
+                        </div>`;
+                    break;
+                case 'buttons':
+                    content = `
+                        <div class="fade-in text-center">
+                        <h2>BS5 Buttons</h2>
+                        <button type="button" class="btn btn-primary">Primary</button>
+                        <button type="button" class="btn btn-secondary">Secondary</button>
+                        <button type="button" class="btn btn-success">Success</button>
+                        <button type="button" class="btn btn-danger">Danger</button>
+                        <button type="button" class="btn btn-warning">Warning</button>
+                        <button type="button" class="btn btn-info">Info</button>
+                        <button type="button" class="btn btn-light">Light</button>
+                        <button type="button" class="btn btn-dark">Dark</button>
+                        <button type="button" class="btn btn-link">Link</button>
+                        <br>
+                        <h5>Los botones en Bootstrap 5 son componentes interactivos que permiten a los usuarios realizar acciones, enviar formularios, 
+                            abrir enlaces y realizar otras operaciones en la interfaz de usuario. Se pueden personalizar fácilmente mediante clases predefinidas para cambiar el color de fondo, 
+                            el color del texto, el tamaño, la forma y otros estilos visuales, adaptándolos a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'grupos-de-botones':
+                    content = `
+                        <div class="fade-in text-center">
+                            <h2 class="text-center mb-4">BS5 Grupos de Botones</h2>
+
+                            <div class="btn-group mb-3 d-flex justify-content-center" role="group" aria-label="Ejemplo básico">
+                                <button type="button" class="btn btn-primary">Izquierda</button>
+                                <button type="button" class="btn btn-primary">Centro</button>
+                                <button type="button" class="btn btn-primary">Derecha</button>
+                            </div>
+                            <div class="btn-group d-flex justify-content-center" role="group" aria-label="Grupo de botones con menú desplegable">
+                                <button type="button" class="btn btn-secondary">1</button>
+                                <button type="button" class="btn btn-secondary">2</button>
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Desplegable
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <li><a class="dropdown-item" href="#">Enlace desplegable 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Enlace desplegable 2</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <br>
+                            <h5>Los grupos de botones en Bootstrap 5 permiten organizar y agrupar botones relacionados en una interfaz de usuario, 
+                                facilitando la interacción y la navegación. Se pueden personalizar fácilmente mediante clases predefinidas para alinear, 
+                                distribuir y estilizar los botones, adaptándolos a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'badges':
+                    content = `
+                        <div class="fade-in text-center">
+                        <h2>BS5 Badges</h2>
+                        <span class="badge bg-primary">Primary</span>
+                        <span class="badge bg-secondary">Secondary</span>
+                        <span class="badge bg-success">Success</span>
+                        <span class="badge bg-danger">Danger</span>
+                        <span class="badge bg-warning">Warning</span>
+                        <span class="badge bg-info">Info</span>
+                        <span class="badge bg-light">Light</span>
+                        <span class="badge bg-dark">Dark</span>
+                        <br><br>
+                        <h5>Los badges en Bootstrap 5 son componentes visuales que permiten resaltar información, 
+                            indicar estados, mostrar notificaciones y etiquetar elementos en la interfaz de usuario. 
+                            Se pueden personalizar fácilmente mediante clases predefinidas para cambiar el color de fondo, el color del texto, 
+                            el tamaño, la forma y otros estilos visuales, adaptándolos a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'progress-bars':
+                    content = `
+                        <div class="fade-in text-center">
+                        <h2>BS5 Progress Bars</h2>
+                        <div class="progress mb-3">
+                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
+                        </div>
+                        <br>
+                        <h5>Las barras de progreso en Bootstrap 5 son componentes visuales que permiten mostrar el avance o la finalización de una tarea, 
+                            indicar el estado de un proceso o representar la cantidad de un valor en relación con un total. 
+                            Se pueden personalizar fácilmente mediante clases predefinidas para cambiar el color de fondo, el color del texto, el tamaño y otros estilos visuales, 
+                            adaptándolas a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'spinners':
+                    content = `
+                        <div class="fade-in text-center">
+                                            <h2>BS5 Spinners</h2>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-border text-secondary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-border text-danger" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-border text-warning" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-border text-info" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-border text-light" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-border text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <br>
+                        <h5>Los spinners en Bootstrap 5 son indicadores de carga que permiten mostrar visualmente que se está procesando una acción, 
+                            cargando contenido o esperando una respuesta. Se pueden personalizar fácilmente mediante clases predefinidas para cambiar el color, 
+                            el tamaño y otros estilos visuales, adaptándolos a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'pagination':
+                    content = `
+                        <div class="fade-in text-center">
+                                            <h2>BS5 Pagination</h2>
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                        <br>
+                        <h5>La paginación en Bootstrap 5 es un componente de navegación que permite dividir y organizar el contenido en páginas, 
+                            facilitando la visualización y la interacción con grandes conjuntos de datos o listas. Se puede personalizar fácilmente mediante clases predefinidas 
+                            para cambiar el color, el tamaño, la forma y otros estilos visuales, adaptándola a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'cards':
+                    content = `
+                        <div class="fade-in text-center">
+                            <h2>BS5 Cards</h2>
+                            <div class="d-flex justify-content-center flex-wrap">
+                                <div class="card m-2" style="width: 18rem;">
+                                    <img src="./img/perro.jpg" class="card-img-top" alt="Card image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Carta de un perro</h5>
+                                        <p class="card-text">Este es un perro muy amigable que disfruta de su tiempo jugando y corriendo.</p>
+                                        <a href="#" class="btn btn-primary">Saber más</a>
+                                    </div>
+                                </div>
+                                <div class="card m-2" style="width: 18rem;">
+                                    <img src="./img/gato.jpg" class="card-img-top" alt="Card image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Carta de un gato</h5>
+                                        <p class="card-text">Este es un gato muy lindo que disfruta de su tiempo jugando y durmiendo.</p>
+                                        <a href="#" class="btn btn-primary">Saber más</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <h5>Las tarjetas en Bootstrap 5 son componentes flexibles y personalizables que permiten mostrar contenido, 
+                                imágenes, enlaces y otros elementos de forma atractiva y organizada. Se pueden personalizar fácilmente mediante clases predefinidas 
+                                para cambiar el color de fondo, el color del texto, el tamaño, la forma y otros estilos visuales, adaptándolas a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'dropdowns':
+                    content = `
+                        <div class="fade-in text-center">
+                                            <h2>BS5 Desplegables</h2>
+                        <div class="dropdown mb-3">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Botón Desplegable
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Acción</a></li>
+                                <li><a class="dropdown-item" href="#">Otra acción</a></li>
+                                <li><a class="dropdown-item" href="#">Accion3</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                Enlace Desplegable
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Acción</a></li>
+                                <li><a class="dropdown-item" href="#">Otra acción</a></li>
+                                <li><a class="dropdown-item" href="#">Accion3</a></li>
+                            </ul>
+                        </div>
+                        <br>
+                        <h5>Los desplegables en Bootstrap 5 son componentes interactivos que permiten mostrar opciones, acciones o enlaces adicionales 
+                            al hacer clic en un botón o enlace. Se pueden personalizar fácilmente mediante clases predefinidas para cambiar el color de fondo, 
+                            el color del texto, el tamaño, la forma y otros estilos visuales, adaptándolos a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'navs':
+                content = `
+                                        <h2>BS5 Navs</h2>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#navs">Activo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#navs">Enlace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#navs">Enlace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Deshabilitado</a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-pills mt-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#navs">Activo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#navs">Enlace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#navs">Enlace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Deshabilitado</a>
+                            </li>
+                        </ul>
+                        <br>
+                        <h5 class="text-center">Los navs en Bootstrap 5 son componentes de navegación que permiten organizar y enlazar secciones de contenido en una página web. 
+                            Se pueden personalizar fácilmente mediante clases predefinidas para cambiar el color de fondo, el color del texto, el tamaño, la forma y otros estilos visuales, 
+                            adaptándolos a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'collapse':
+                    content = `
+                        <div class="fade-in text-center">
+                                            <h2>BS5 Collapse</h2>
+                        <p>
+                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Enlace con colapso
+                            </a>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Botón con colapso
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Deshabilitado</a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-pills mt-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#navs">Activo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#navs">Enlace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#navs">Enlace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Deshabilitado</a>
+                            </li>
+                        </ul>
+                        <br>
+                        <h5>El componente Collapse en Bootstrap 5 permite mostrar y ocultar contenido de manera dinámica con un efecto de 
+                            deslizamiento. Es útil para crear secciones expandibles y contraíbles, como acordeones, menús desplegables y más. 
+                            Se puede personalizar fácilmente mediante clases predefinidas para cambiar el comportamiento y el estilo visual, 
+                            adaptándolo a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'navbar':
+                    content = `
+                        <div class="fade-in text-center">
+                                            <h2>BS5 Navbar</h2>
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div class="container-fluid">
+                                <a class="navbar-brand" href="#">Navbar</a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                    <div class="navbar-nav">
+                                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                                        <a class="nav-link" href="#">Características</a>
+                                        <a class="nav-link" href="#">Precios</a>
+                                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Deshabilitado</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                        <br>
+                        <h5>La barra de navegación (navbar) en Bootstrap 5 es un componente de diseño que permite organizar y enlazar secciones de contenido en una página web. 
+                            Se puede personalizar fácilmente mediante clases predefinidas para cambiar el color de fondo, el color del texto, el tamaño, la forma y otros estilos visuales, 
+                            adaptándola a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'carousel':
+                    content = `
+                        <div class="fade-in text-center">
+                                            <h2>BS5 Carrusel</h2>
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="./img/perro.jpg" class="d-block w-100" alt="Primera diapositiva">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="./img/gato.jpg" class="d-block w-100" alt="Segunda diapositiva">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="./img/pajaro.jpg" class="d-block w-100" alt="Tercera diapositiva">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Anterior</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Siguiente</span>
+                            </button>
+                        </div>
+                        </div>`;
+                    break;
+                case 'modal':
+                    content = `
+                                        <h2>BS5 Modal</h2>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Lanzar modal de demostración
+                        </button>
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Título del modal</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Este es un ejemplo de un modal en Bootstrap 5. Los modales son ventanas emergentes que se utilizan para mostrar contenido adicional sin salir de la página actual.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary">Guardar cambios</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>`;
+                    break;
+                case 'tooltip':
+                    content = `
+                                        <h2>BS5 Tooltip</h2>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip en la parte superior">
+                        Tooltip en la parte superior
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip a la derecha">
+                        Tooltip a la derecha
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip en la parte inferior">
+                        Tooltip en la parte inferior
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip a la izquierda">
+                        Tooltip a la izquierda
+                    </button>
+
+                    <br>
+                    <h5>Los tooltips en Bootstrap 5 son pequeñas ventanas emergentes que se utilizan para mostrar información adicional al pasar el cursor sobre un elemento.
+
+                        </div>`;
+                    break;
+                case 'popover':
+                    content = `
+                                <h2>BS5 Popover</h2>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="popover" title="Título del popover" data-bs-content="Y aquí hay un contenido increíble. Es muy atractivo. ¿Verdad?">
+                            Haz clic para alternar popover
+                        </button>
+                        <br>
+                        <h5>Los popovers en Bootstrap 5 son ventanas emergentes que se utilizan para mostrar contenido adicional al hacer clic en un elemento. 
+                            Se pueden personalizar fácilmente mediante atributos de datos para cambiar el título, el contenido, la posición y otros estilos visuales, 
+                            adaptándolos a las necesidades de diseño y usabilidad del sitio web.</h5>
+                        </div>`;
+                    break;
+                case 'toast':
+                    content = `
+                        <h2>BS5 Toast</h2>
+                        <!-- Toast HTML -->
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast" style="position: absolute; top: 20px; right: 20px;">
+                            <div class="toast-header">
+                                <img src="https://via.placeholder.com/20" class="rounded me-2" alt="Icono">
+                                <strong class="me-auto">Bootstrap</strong>
+                                <small>Hace 11 minutos</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="toast-body">
+                                Hola, este es un mensaje de toast.
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="showToast()">Mostrar Toast</button>
+                    </div>
+                    <br>
+                    <h5 class="text-center">Los toasts en Bootstrap 5 son notificaciones emergentes que se utilizan para mostrar mensajes breves y 
+                        temporales en la parte superior o inferior de la pantalla.</h5>
+                        </div>`;
+                    break;
+                case 'scrollspy':
+                    content = `
+                        <h2>BS5 Scrollspy</h2>
+        <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#scrollspyHeading1">Primero</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#scrollspyHeading2">Segundo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#scrollspyHeading3">Tercero</a>
+                </li>
+            </ul>
+        </nav>
+        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+            <h4 id="scrollspyHeading1">Primera cabecera</h4>
+            <p>...</p>
+            <br>
+            <h4 id="scrollspyHeading2">Segunda cabecera</h4>
+            <p>...</p>
+            <br>
+            <h4 id="scrollspyHeading3">Tercera cabecera</h4>
+            <p>...</p>
+            <br>
+        </div>
+        <br>
+        <h5>El scrollspy en Bootstrap 5 es un complemento de JavaScript que permite resaltar automáticamente los elementos de navegación activos</h5>
+                        </div>`;
+                    break;
+                case 'offcanvas':
+                    content = `
+                       <h2>BS5 Offcanvas</h2>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            Alternar Offcanvas
+        </button>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+            </div>
+            <div class="offcanvas-body">
+                <p>Texto de ejemplo en el offcanvas</p>
+            </div>
+        </div> 
+        <br>
+        <h5>El offcanvas en Bootstrap 5 es un componente de diseño que permite mostrar contenido adicional fuera del área principal de la página.</h5>
+                        </div>`;
+                    break;
+                case 'utilities':
+                    content = `
+                        <h2>BS5 Utilities</h2>
+        <div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
+        <div class="p-3 mb-2 bg-secondary text-white">.bg-secondary</div>
+        <div class="p-3 mb-2 bg-success text-white">.bg-success</div>
+        <div class="p-3 mb-2 bg-danger text-white">.bg-danger</div>
+        <div class="p-3 mb-2 bg-warning text-dark">.bg-warning</div>
+        <div class="p-3 mb-2 bg-info text-dark">.bg-info</div>
+        <div class="p-3 mb-2 bg-light text-dark">.bg-light</div>
+        <div class="p-3 mb-2 bg-dark text-white">.bg-dark</div>
+        <br>
+        <h5>Los utilitarios en Bootstrap 5 son clases de utilidad que permiten aplicar estilos y comportamientos específicos a los elementos de la página.</h5>
+                        </div>`;
+                    break;
+                case 'dark-mode':
+                    content = `
+                    <div class="fade-in text-center">
+                        <div class="form-check form-switch d-flex justify-content-center">
+                            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                            <label class="form-check-label" for="darkModeSwitch">Alternar Modo Oscuro</label>
+                        </div>
+                        <br>
+                        <h5>El modo oscuro en Bootstrap 5 es una característica que permite cambiar el color de fondo y el color del texto de la interfaz de usuario para mejorar la legibilidad y reducir la fatiga visual en entornos de poca luz.</h5>
+                    </div>`;
+                    break;
+                case 'flex':
+                    content = `
+                    <h2>BS5 Flex</h2>
+        <div class="d-flex justify-content-between">
+            <div class="p-2">Elemento flex 1</div>
+            <div class="p-2">Elemento flex 2</div>
+            <div class="p-2">Elemento flex 3</div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="p-2">Elemento flex 1</div>
+            <div class="p-2">Elemento flex 2</div>
+            <div class="p-2">Elemento flex 3</div>
+        </div>
+        <div class="d-flex justify-content-end mt-3">
+            <div class="p-2">Elemento flex 1</div>
+            <div class="p-2">Elemento flex 2</div>
+            <div class="p-2">Elemento flex 3</div>
+        </div>    
+        <br>
+        <h5>El sistema de flexbox en Bootstrap 5 es una herramienta de diseño que permite crear diseños flexibles y responsivos mediante la alineación</h5>
+                        </div>`;
+                    break;
+                case 'forms':
+                    content = `
+                    <h2>BS5 Form</h2>
+                    <form action="">
+                        <h1>Formulario de acceso</h1>
+  <div class="mb-3 mt-3">
+    <label for="email" class="form-label">Email:</label>
+    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+  </div>
+  <div class="mb-3">
+    <label for="pwd" class="form-label">Password:</label>
+    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+  </div>
+  <div class="form-check mb-3">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox" name="remember"> Remember me
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<br>
+<h5>Los formularios en Bootstrap 5 son componentes interactivos que permiten a los usuarios ingresar, enviar y validar datos en una página web.</h5>    
+                        </div>`;
+                    break;
+                case 'select':
+                    content = `
+                    <h2>Select</h2>
+                    <select class="form-select width-50">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    </select>
+                    <br>
+                    <h5>Los select en Bootstrap 5 son componentes interactivos que permiten a los usuarios seleccionar una opción de una lista desplegable.</h5>
+                        </div>`;
+                    break;
+                case 'checks':
+                    content = `
+                    <h2>BS5 Checks</h2>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>
+                    <label class="form-check-label">Option 1</label>
+                    </div>
+                    <br><br><br>
+                    <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>Option 1
+                    <label class="form-check-label" for="radio1"></label>
+                    </div>
+                    <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">Option 2
+                    <label class="form-check-label" for="radio2"></label>
+                    </div>
+                    <div class="form-check">
+                    <input type="radio" class="form-check-input" disabled>Option 3
+                    <label class="form-check-label"></label>
+                    </div>
+                    <br><br>
+                    <h5>Los checks en Bootstrap 5 son componentes interactivos que permiten a los usuarios seleccionar una o varias opciones de una lista de verificación o de opciones.</h5>
+                        </div>`;
+                    break;
+                case 'range':
+                    content = `
+                    <h2>BS5 Range</h2>
+                    <label for="customRange" class="form-label">Custom range</label>
+                    <input type="range" class="form-range" id="customRange">
+                    <br><br>
+                    <input type="range" class="form-range" step="10">
+                    <br><br>
+                    <h5>Los rangos en Bootstrap 5 son componentes interactivos que permiten a los usuarios seleccionar un valor de un rango numérico.</h5>
+                        </div>`;
+                    break;
+                case 'input-group':
+                    content = `
+                    <h2>BS5 Input Group</h2>
+                    <form>
+                    <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" placeholder="Username">
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Your Email">
+                        <span class="input-group-text">@example.com</span>
+                    </div>
+                    </form>
+                    <br>
+                    <h5>Los grupos de entrada en Bootstrap 5 son componentes que permiten agrupar elementos de formulario y botones en una sola línea.</h5>
+                        </div>`;
+                    break;
+                case 'floating':
+                    content = `
+                    <h2>BS5 Floating</h2>
+                    <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <label for="email">Email</label>
+                    </div>
+
+                    <div class="form-floating mt-3 mb-3">
+                    <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+                    <label for="pwd">Password</label>
+                    </div>
+                    <br>
+                    <h5>Los formularios flotantes en Bootstrap 5 son componentes que permiten mostrar etiquetas de entrada dentro de los campos de formulario.</h5>
+                        </div>`;
+                    break;
+                case 'validation':
+                    content = `
+                    <h2>BS5 Validation</h2>
+                    <form action="/action_page.php" class="was-validated">
+                    <div class="mb-3 mt-3">
+                        <label for="uname" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pwd" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
+                        <label class="form-check-label" for="myCheck">Im agree.</label>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Check this checkbox to continue.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <br>
+                    <h5>La validación en Bootstrap 5 es un conjunto de clases y estilos que permiten mostrar mensajes de validación y retroalimentación en los campos de formulario.</h5>
+                        </div>`;
+                    break;
+                default:
+                    content = '<p>Seleccione un componente válido.</p>';
+            }
+            document.getElementById('mainContent').innerHTML = content;
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+    
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl);
+            });
+            function showToast() {
+            const toastElement = document.getElementById('liveToast');
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+            darkModeSwitch.addEventListener('change', () => {
+                document.body.classList.toggle('bg-dark');
+                document.body.classList.toggle('text-white');
+            });
+}
+    </script>
+
+
+</body>
+
+</html>
